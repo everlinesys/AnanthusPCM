@@ -10,17 +10,17 @@ export default function PublicHeader() {
   const theme = themes?.[brand.theme] || themes.darkModern;
 
   return (
-    <header className={` shadow-sm md:px-16`} style={{ backgroundColor: "#eeecec" || brand.colors.accent , color:  "#13205f" ||brand.colors.primary  }}>
+    <header className={` shadow-sm md:px-16 `} style={{ background: brand.colors?.primary || "#1b0588", color: brand.colors?.accent || "#ffffff" }}>
       <div className="max-w-7xl mx-auto px-3 h-16 flex items-center justify-between">
 
         {/* Logo + Small Title */}
-        <Link to="/" className="flex items-center gap-3">
+        <Link to="/" className="flex items-center md:gap-3">
 
           {brand.logo ? (
             <img
               src={brand.logo}
               alt={brand.siteName}
-              className="h-30 w-auto object-contain"
+              className="h-15 w-auto object-contain"
             />
           ) : (
             <div className=" h-10 w-10 bg-gray-200 rounded-lg flex items-center justify-center text-sm font-bold">
@@ -29,9 +29,9 @@ export default function PublicHeader() {
           )}
 
           {/* Small Title */}
-          {/* <span className={`text-sm font-semibold `}>
+          <span className={`text-xs md:text-2xl font-semibold uppercase tracking-tight ${theme.text?.title || ""}`}>
             {brand.siteName}
-          </span> */}
+          </span>
 
         </Link>
 
@@ -43,9 +43,8 @@ export default function PublicHeader() {
 
           <NavLink to="/contact" className="hover:opacity-80 transition">
             Contact
-          </NavLink> <NavLink to="/aboutus" className="hover:opacity-80 transition">
-            About Us
-          </NavLink>
+          </NavLink> 
+          
         </nav>
 
         {/* Auth Buttons */}
@@ -63,7 +62,7 @@ export default function PublicHeader() {
               <Link
                 to="/register"
                 className={`${theme.button.primary} px-4 py-2 bg-[#F59E0B] ${theme.shape.buttonRadius}`}
-                style={{ background: brand.colors?.primary || "#F59E0B", color: brand.colors?.accent || "#000000" }}
+                style={{ background: brand.colors?.accent || "#ffffff", color: brand.colors?.primary || "#012980" }}
               >
                 Register
               </Link>

@@ -1,114 +1,74 @@
 {
   "default": {
-    "siteName": "Council for Mind and Behavioural Studies",
-    "tagline": "Advancing Psychology, Behavioural Science & Human Potential",
+    "siteName": "Ananthu's PCM",
+    "tagline": "+1 & +2 Science Coaching for Physics, Chemistry & Mathematics",
 
     "primaryColor": "#1e3a8a",
-    "theme": "formalLight",
+    "theme": "academicPro",
 
     "logo": "/logo.png",
-    "students": "500+",
+    "students": "300+",
 
     "colors": {
       "primary": "#1e3a8a",
-      "accent": "#ffff"
+      "accent": "#ffffff"
     },
 
     "hero": {
-      "title": "Empowering Minds Through Psychology & Behavioural Science",
-      "subtitle": "Enhance your understanding of human behaviour, emotional intelligence, and professional skills through expert-led programs and research-driven learning.",
+      "title": "ഉറപ്പിക്കാം A+ അനന്ദൂസിനൊപ്പം ",
+      "subtitle": "Focused coaching for +1 & +2 students in Physics, Chemistry, and Mathematics. Build strong concepts, solve faster, and score higher in board exams.",
       "image": "/hero.png",
 
-      "bunnyVideoId": "",
-      "poster": "/hero.jpg"
+      "bunnyVideoId": "replace-with-class-video",
+      "poster": "/hero.png"
     },
 
     "preview": {
-      "badge": "Professional Council",
-      "title": "A platform for psychological learning & research",
-      "highlight": "Education • Research • Professional Excellence",
-      "description": "The Council for Mind and Behavioural Studies (CMBS) is an autonomous professional council established with the vision of promoting education, research, and professional excellence in the fields of psychology, behavioural science, cognitive development, and human potential.",
+      "badge": "Science Excellence Hub",
+      "title": "Strong Basics. Top Scores.",
+      "highlight": "Concept-Based PCM Learning",
+      "description": "We focus on deep conceptual understanding, regular tests, and exam-oriented problem solving. Our structured approach ensures students perform confidently in board exams and entrance preparations.",
 
-      "bunnyVideoId": "",
-      "libraryId": "",
-      "poster": "/cmbs-preview.jpg",
+      "bunnyVideoId": "replace-with-demo-video",
+      "libraryId": "your-library-id",
+      "poster": "/class-preview.jpg",
 
-      "videoUrl": "",
+      "videoUrl": "https://youtube.com",
 
       "perks": [
-        { "value": "CERTIFIED", "label": "Industry-Relevant Programs" },
-        { "value": "RESEARCH", "label": "Practical & Evidence-Based Learning" }
+        { "value": "DAILY PRACTICE", "label": "Regular Problem Solving Sessions" },
+        { "value": "TEST SERIES", "label": "Weekly & Monthly Exams" }
       ]
     },
-
-    "pricingInfo": {
-      "title": "Program Information",
-      "items": [
-        "Flexible course structures available",
-        "Certificate & Diploma programs offered",
-        "Affordable pricing based on program level",
-        "No hidden charges",
-        "Online & hybrid learning options"
-      ]
-    },
-
-    "schedule": {
-      "title": "Learning Format",
-      "details": [
-        "Live & recorded sessions",
-        "Flexible learning schedules",
-        "Weekend & weekday batches",
-        "Workshops, seminars & webinars",
-        "Internship opportunities available"
-      ]
-    },
-
-    "features": [
-      "Certificate & diploma programs in psychology",
-      "Behavioural science & emotional intelligence training",
-      "Expert-led webinars & workshops",
-      "Research and internship opportunities",
-      "Professional skill development programs",
-      "Focus on mental wellness and behavioural competence"
-    ],
-
-    "team": [
-      {
-        "name": "CMBS Academic Panel",
-        "role": "Experts & Researchers",
-        "qualification": "Psychology, Behavioural Science & Education Professionals",
-        "image": "/hero.jpg"
-      }
-    ],
 
     "reviews": [
       {
-        "name": "Arjun Nair",
-        "role": "Student",
+        "name": "Aditya Krishnan",
+        "role": "+2 Science Student",
         "rating": 5,
-        "text": "The programs are very insightful and practical. Helped me understand human behaviour deeply."
+        "text": "Physics and Maths became much easier after joining here. Concepts are explained very clearly."
       },
       {
-        "name": "Shifa Rahman",
-        "role": "Professional",
+        "name": "Ameen Rahman",
+        "role": "+1 Student",
         "rating": 5,
-        "text": "Great platform for learning psychology and improving emotional intelligence."
+        "text": "Regular tests helped me improve a lot. Chemistry is now one of my strongest subjects."
       },
       {
-        "name": "Rahul Das",
-        "role": "Student",
+        "name": "Sneha S",
+        "role": "+2 Student",
         "rating": 4,
-        "text": "Well-structured courses with good academic and practical balance."
+        "text": "Very supportive teaching and good exam preparation. Helped me score better in boards."
       }
     ],
 
     "contact": {
-      "email": "iechelp2@gmail.com",
-      "phone": " +91 8606 999888",
-      "whatsapp": "+918606999888",
-      "address": "India",
-      "supportName": "CMBS Support Team",
-      "image": "/support.jpg"
+      "email": "ananthupcm@gmail.com",
+      "phone": "+91 9XXXXXXXXX",
+      "whatsapp": "+91 9XXXXXXXXX",
+      "address": "Kerala, India",
+      "supportName": "Ananthu Sir",
+      "image": "/support-academic.jpg"
     }
   }
 }

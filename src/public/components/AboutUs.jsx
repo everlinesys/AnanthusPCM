@@ -1,71 +1,75 @@
 import React from "react";
+import { useBranding } from "../../shared/hooks/useBranding";
 
-const AboutUs = () => {
+export default function About() {
+  const brand = useBranding();
+
   return (
-    <div className="bg-white text-gray-800">
+    <div className="bg-[#f8fafc] text-[#0f172a]">
 
-      {/* HERO SECTION */}
-      <div className="relative h-[60vh] flex items-center justify-center text-center">
+      {/* HERO */}
+      <div className="relative h-[55vh] flex items-center justify-center text-center">
         <img
-          src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          
+          src="/pcm-hero.jpg"
           className="absolute w-full h-full object-cover"
+          alt="PCM Tuition"
         />
         <div className="absolute inset-0 bg-black/50"></div>
 
         <div className="relative z-10 text-white px-6">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            About CMBS
+            About {brand.siteName}
           </h1>
           <p className="max-w-2xl mx-auto text-lg opacity-90">
-            Advancing the science of mind, behaviour, and human potential.
+            Focused coaching for +1 & +2 students in Physics, Chemistry & Mathematics.
           </p>
         </div>
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-16">
 
-        {/* INTRO SECTION */}
+        {/* INTRO */}
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <img
-            src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21"
-            alt="counselling"
-            className="rounded-2xl shadow-lg"
+            src="/classroom.jpg"
+            alt="classroom"
+            className="rounded-xl shadow-md"
           />
 
           <div>
-            <h2 className="text-3xl font-bold mb-4">
-              Council for Mind and Behavioural Studies
+            <h2 className="text-3xl font-semibold mb-4">
+              Build Strong PCM Foundations
             </h2>
-            <p className="mb-4">
-              CMBS is an autonomous professional council dedicated to promoting
-              education, research, and excellence in psychology and behavioural sciences.
+            <p className="mb-4 text-gray-600">
+              {brand.siteName} is dedicated to helping +1 and +2 students master
+              Physics, Chemistry, and Mathematics with clarity and confidence.
             </p>
-            <p>
-              We bridge academic knowledge with real-world application through
-              structured programs, research, and professional training.
+            <p className="text-gray-500">
+              Our teaching focuses on concept clarity, regular practice, and
+              exam-oriented preparation to ensure students perform their best
+              in board exams and competitive tests.
             </p>
           </div>
         </div>
 
-        {/* OBJECTIVES */}
+        {/* WHY US */}
         <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center mb-10">
-            Our Objectives
+          <h2 className="text-3xl font-semibold text-center mb-10">
+            Why Choose Us
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              "Promote psychology & behavioural education",
-              "Encourage research & innovation",
-              "Provide professional training",
-              "Organize seminars & workshops",
-              "Offer certifications & diplomas",
-              "Support mental wellness awareness",
+              "Concept-based teaching (not mugging)",
+              "Weekly & monthly test series",
+              "Personal attention for every student",
+              "Previous year question focus",
+              "Exam strategy & time management",
+              "Doubt-clearing sessions"
             ].map((item, i) => (
               <div
                 key={i}
-                className="p-6 rounded-xl border hover:shadow-lg transition"
+                className="p-6 bg-white border border-[#e2e8f0] rounded-xl hover:shadow-md transition"
               >
                 <p className="font-medium">{item}</p>
               </div>
@@ -73,42 +77,42 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* PROGRAMS */}
+        {/* SUBJECTS */}
         <div className="mt-20 grid md:grid-cols-2 gap-10 items-center">
           <div>
-            <h2 className="text-3xl font-bold mb-4">Our Programs</h2>
-            <ul className="space-y-3">
-              <li>• Certificate Courses</li>
-              <li>• Diploma & Advanced Programs</li>
-              <li>• Webinars & Seminars</li>
-              <li>• Research Initiatives</li>
-              <li>• Internship Programs</li>
+            <h2 className="text-3xl font-semibold mb-4">Subjects Covered</h2>
+            <ul className="space-y-3 text-gray-600">
+              <li>• Physics (Concept + Numericals)</li>
+              <li>• Chemistry (Theory + Problem Solving)</li>
+              <li>• Mathematics (Step-by-step mastery)</li>
+              <li>• Board Exam Preparation</li>
+              <li>• Entrance-Oriented Practice</li>
             </ul>
           </div>
 
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f"
-            alt="learning"
-            className="rounded-2xl shadow-lg"
+            src="/study.jpg"
+            alt="study"
+            className="rounded-xl shadow-md"
           />
         </div>
 
         {/* VALUES */}
         <div className="mt-20">
-          <h2 className="text-3xl font-bold text-center mb-10">
-            Our Core Values
+          <h2 className="text-3xl font-semibold text-center mb-10">
+            Our Approach
           </h2>
 
           <div className="grid md:grid-cols-4 gap-6 text-center">
             {[
-              "Integrity",
-              "Academic Excellence",
-              "Innovation",
-              "Social Responsibility",
+              "Clarity",
+              "Consistency",
+              "Practice",
+              "Results"
             ].map((val, i) => (
               <div
                 key={i}
-                className="p-6 rounded-xl bg-gray-50 hover:bg-gray-100 transition"
+                className="p-6 bg-white border border-[#e2e8f0] rounded-xl"
               >
                 <h3 className="font-semibold">{val}</h3>
               </div>
@@ -116,40 +120,47 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* QUALITY */}
+        {/* RESULT / TRUST */}
         <div className="mt-20 grid md:grid-cols-2 gap-10 items-center">
           <img
-            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40"
-            alt="research"
-            className="rounded-2xl shadow-lg"
+            src="/results.jpg"
+            alt="results"
+            className="rounded-xl shadow-md"
           />
 
           <div>
-            <h2 className="text-3xl font-bold mb-4">Quality Policy</h2>
-            <p className="mb-3">
-              We ensure academic credibility, continuous improvement, and
-              evidence-based learning in all programs.
+            <h2 className="text-3xl font-semibold mb-4">
+              Proven Results
+            </h2>
+            <p className="mb-3 text-gray-600">
+              Our students consistently improve their scores through structured
+              learning and regular evaluation.
             </p>
-            <p>
-              Our focus is delivering high-quality education with real-world
-              relevance and professional impact.
+            <p className="text-gray-500">
+              We focus not just on marks, but on building a strong academic
+              foundation that helps students succeed in higher studies.
             </p>
           </div>
         </div>
 
-        {/* COMMITMENT */}
+        {/* CTA */}
         <div className="mt-20 text-center max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">Our Commitment</h2>
-          <p>
-            We believe understanding the human mind is essential for a better society.
-            Through education and research, we develop emotionally intelligent,
-            self-aware individuals who create meaningful impact.
+          <h2 className="text-3xl font-semibold mb-4">
+            Start Your PCM Journey Today
+          </h2>
+          <p className="text-gray-600 mb-6">
+            Join {brand.siteName} and experience focused, result-oriented coaching.
           </p>
+
+          <a
+            href="/contact"
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg"
+          >
+            Enroll Now
+          </a>
         </div>
 
       </div>
     </div>
   );
-};
-
-export default AboutUs;
+}

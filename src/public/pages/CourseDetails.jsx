@@ -87,7 +87,7 @@ Course: ${course.title}`;
   if (!course) return <div className="py-20 text-center">Course not found!!!.</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
+    <div className="min-h-screen bg-gray-50 min-w-[100vw]">
 
       {/* ===== HERO ===== */}
       <div

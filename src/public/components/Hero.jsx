@@ -39,16 +39,17 @@ export default function Hero() {
       <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center p-8 md:p-16">
 
         {/* LEFT */}
-        <div className="space-y-6 text-center md:text-left">
+        <div className="space-y-6 text-center md:text-left ">
 
           {/* Image top mobile only */}
-          <div className="relative md:hidden md:block group ">
+          <div className="relative md:hidden md:block group text-center items-center justify-center h-[30vh]">
 
             {brand.hero.image ? (
               <img
                 src={brand.hero.image}
                 alt={brand.siteName}
-                className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/2] w-full `}
+               
+                className={`relative z-10 ${brand.theme.shape?.radius || ""} align-center object-cover aspect-[1/2] h-full w-auto mx-auto `}
               />
             ) : (
               <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>
@@ -79,7 +80,7 @@ export default function Hero() {
 
           {/* Title */}
           <h1
-            className="text-4xl md:text-5xl font-bold leading-[1.1] tracking-tight"
+            className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight malayalam "
           // style={{ color: brand.colors.primary }}
           >
             {brand.hero?.title || "Welcome to eLearn"}
@@ -147,7 +148,7 @@ export default function Hero() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="relative hidden md:block group">
+        <div className="relative hidden md:block group md:ml-20">
 
           {/* <div className={`absolute inset-0 ${brand.theme.layout.panel} rotate-3 transition-transform group-hover:rotate-6`} /> */}
 
@@ -155,7 +156,7 @@ export default function Hero() {
             <img
               src={brand.hero.image}
               alt="Learning"
-              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/2.5] w-full `}
+              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[1/2] h-full `}
             />
           ) : (
             <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>

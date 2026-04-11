@@ -213,5 +213,48 @@
       "title": "text-xl sm:text-2xl font-bold text-[#92400E]",
       "subtitle": "text-[#78350F]"
     }
+  },
+  "academicPro": {
+    "layout": {
+      "page": "bg-[#f8fafc] text-[#0f172a]",
+      "container": "bg-[#f8fafc] text-[#0f172a]",
+      "panel": "bg-white border border-[#e2e8f0]",
+      "header": "bg-white/80 backdrop-blur border-b border-[#e2e8f0]",
+      "footer": "bg-white border-t border-[#e2e8f0]"
+    },
+
+    "shape": {
+      "radius": "rounded-lg",
+      "cardRadius": "rounded-xl",
+      "buttonRadius": "rounded-lg",
+      "inputRadius": "rounded-lg"
+    },
+
+    "text": {
+      "title": "font-semibold tracking-tight text-[#0f172a]",
+      "subtitle": "text-gray-600 font-medium",
+      "body": "text-gray-500",
+      "label": "text-gray-400 text-xs font-semibold"
+    },
+
+    "button": {
+      "primary": "bg-blue-600 hover:bg-blue-700 text-white",
+      "secondary": "bg-white border border-[#cbd5f5] text-[#0f172a] hover:bg-[#f1f5f9]",
+      "accent": "bg-amber-500 hover:bg-amber-600 text-white",
+      "danger": "bg-red-600 hover:bg-red-700 text-white"
+    },
+
+    "input": {
+      "base": "bg-white border border-[#cbd5e1] text-[#0f172a] placeholder:text-gray-400 focus:border-blue-500 outline-none"
+    },
+
+    "badge": {
+      "base": "bg-[#f1f5f9] border border-[#e2e8f0] text-gray-600"
+    },
+
+    "card": {
+      "soft": "bg-white border border-[#e2e8f0]",
+      "glass": "bg-white/80 backdrop-blur border border-[#e2e8f0]"
+    }
   }
 }

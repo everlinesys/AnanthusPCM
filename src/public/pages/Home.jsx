@@ -17,8 +17,8 @@ export default function Home() {
       <PreviewVideo />
 
       <FeaturedCoursesStrip />
-      <MissionVision />
-      <AboutUs />
+      {/* <MissionVision />
+      <AboutUs /> */}
       <Testimonials />
       <Enroll />
       <CTASection />

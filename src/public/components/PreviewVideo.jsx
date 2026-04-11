@@ -14,7 +14,7 @@ export default function PreviewVideo() {
     brand.hero?.image;
 
   return (
-    <section className="relative overflow-hidden bg-white text-black md:px-16">
+    <section className="relative overflow-hidden bg-white text-black md:px-16 md:py-20">
       <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
 
         {/* 🎥 VIDEO — CLEAN */}
@@ -23,7 +23,7 @@ export default function PreviewVideo() {
             videoId={videoId}
             poster={poster}
           />  */}
-          <img src="/prv.avif" className="w-[100vw] md:w-[50vw]" alt="" />
+          <img src="/prv.webp" className="w-[100vw] md:w-[50vw]" alt="" />
         </div>
 
         {/* 📝 TEXT — KEPT */}

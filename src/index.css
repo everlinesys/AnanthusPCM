@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
 :root {
-  font-family: "Fjalla One", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -45,4 +45,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
 
 
+}
+.malayalam{
+  font-family: "Anek Malayalam", "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
