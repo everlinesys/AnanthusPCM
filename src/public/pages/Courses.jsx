@@ -34,7 +34,7 @@ export default function Courses() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 " >
+    <div className="min-h-screen bg-gray-50 min-w-[100vw]" >
       <header
         className="py-20 text-center text-white px-6 md:px-16"
         style={{ backgroundColor: primary  }}

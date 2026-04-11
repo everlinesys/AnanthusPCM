@@ -49,7 +49,7 @@ export default function Hero() {
                 src={brand.hero.image}
                 alt={brand.siteName}
                
-                className={`relative z-10 ${brand.theme.shape?.radius || ""} align-center object-cover aspect-[1/2] h-full w-auto mx-auto `}
+                className={`relative z-10 ${brand.theme.shape?.radius || ""} align-center object-cover aspect-[4/4] h-full w-auto mx-auto `}
               />
             ) : (
               <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>
@@ -148,7 +148,7 @@ export default function Hero() {
         </div>
 
         {/* RIGHT IMAGE */}
-        <div className="relative hidden md:block group md:ml-20">
+        <div className="relative hidden md:block group ">
 
           {/* <div className={`absolute inset-0 ${brand.theme.layout.panel} rotate-3 transition-transform group-hover:rotate-6`} /> */}
 
@@ -156,10 +156,10 @@ export default function Hero() {
             <img
               src={brand.hero.image}
               alt="Learning"
-              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[1/2] h-full `}
+              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/4] h-full `}
             />
           ) : (
-            <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>
+            <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/4] w-full flex items-center justify-center`}>
               <div className="text-white/10 font-black text-8xl uppercase -rotate-12 select-none tracking-tighter">
                 Learn
               </div>
