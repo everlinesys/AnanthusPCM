@@ -98,7 +98,12 @@ export const router = createBrowserRouter([
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
                     { path: "students", element: <AdminStudents /> },
                     { path: "teachers", element: <AdminTeachers /> },
+                    { path: "payouts", element: <Payouts /> },
                     { path: "settings", element: <AdminSettings /> },
+                    { path: "classes", element: <ClerkClasses /> },
+                    { path: "attendance", element: <Attendance /> },
+
+                    { path: "teacher-attendance", element: <TeacherAttendance /> },
                 ],
             },
         ],

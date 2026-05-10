@@ -18,9 +18,6 @@ export default function Payouts() {
 
   const [remarks, setRemarks] = useState("");
 
-  const [manualMode, setManualMode] =
-    useState(false);
-
   const [loading, setLoading] = useState(false);
 
   const [uiModal, setUiModal] = useState({
@@ -45,7 +42,9 @@ export default function Payouts() {
         await Promise.all([
           api.get("/clerk/teachers"),
 
-          api.get("/clerk/manual-payouts"),
+          api.get(
+            "/clerk/manual-payouts"
+          ),
         ]);
 
       setTeachers(teachersRes.data || []);
@@ -76,7 +75,7 @@ export default function Payouts() {
   }
 
   /* =========================================================
-     FORMAT
+     FORMAT DATE
   ========================================================= */
 
   function formatIST(dateString) {
@@ -125,20 +124,16 @@ export default function Payouts() {
 
         remarks,
 
-        isManual: manualMode,
+        manualHours:
+          Number(hours),
+
+        manualAmount:
+          Number(amount),
+
+        rate: Number(rate),
+
+        isManual: true,
       };
-
-      // MANUAL
-      if (manualMode) {
-        payload.manualHours =
-          Number(hours);
-
-        payload.manualAmount =
-          Number(amount);
-
-        payload.rate =
-          Number(rate);
-      }
 
       await api.post(
         "/clerk/manual-payouts",
@@ -155,8 +150,6 @@ export default function Payouts() {
       setAmount("");
 
       setRemarks("");
-
-      setManualMode(false);
 
       load();
 
@@ -175,6 +168,7 @@ export default function Payouts() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-white p-6 md:p-10">
+
       <div className="max-w-7xl mx-auto space-y-8">
 
         {/* HEADER */}
@@ -186,41 +180,20 @@ export default function Payouts() {
           </h1>
 
           <p className="text-slate-400 mt-2">
-            Manage teacher salary and
-            payouts.
+            Manage manual teacher
+            salary entries.
           </p>
 
         </div>
 
-        {/* CREATE */}
+        {/* CREATE FORM */}
 
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-6">
 
-          <div className="flex items-center justify-between">
-
+          <div>
             <h2 className="text-xl font-bold">
-              Create Payout
+              Create Manual Payout
             </h2>
-
-            {/* MODE */}
-
-            <button
-              onClick={() =>
-                setManualMode(
-                  !manualMode
-                )
-              }
-              className={`px-4 py-2 rounded-xl text-sm font-bold transition ${
-                manualMode
-                  ? "bg-amber-500 text-black"
-                  : "bg-indigo-600"
-              }`}
-            >
-              {manualMode
-                ? "MANUAL MODE"
-                : "AUTO MODE"}
-            </button>
-
           </div>
 
           <form
@@ -231,6 +204,8 @@ export default function Payouts() {
             {/* TOP */}
 
             <div className="grid md:grid-cols-2 gap-4">
+
+              {/* TEACHER */}
 
               <select
                 value={
@@ -258,6 +233,8 @@ export default function Payouts() {
                 ))}
 
               </select>
+
+              {/* REMARKS */}
 
               <input
                 placeholder="Remarks"
@@ -300,49 +277,53 @@ export default function Payouts() {
 
             </div>
 
-            {/* MANUAL */}
+            {/* PAYOUT INPUTS */}
 
-            {manualMode && (
-              <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 gap-4">
 
-                <input
-                  type="number"
-                  placeholder="Hours"
-                  value={hours}
-                  onChange={(e) =>
-                    setHours(
-                      e.target.value
-                    )
-                  }
-                  className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
-                />
+              {/* HOURS */}
 
-                <input
-                  type="number"
-                  placeholder="Rate / Hour"
-                  value={rate}
-                  onChange={(e) =>
-                    setRate(
-                      e.target.value
-                    )
-                  }
-                  className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
-                />
+              <input
+                type="number"
+                placeholder="Hours"
+                value={hours}
+                onChange={(e) =>
+                  setHours(
+                    e.target.value
+                  )
+                }
+                className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
+              />
 
-                <input
-                  type="number"
-                  placeholder="Manual Amount"
-                  value={amount}
-                  onChange={(e) =>
-                    setAmount(
-                      e.target.value
-                    )
-                  }
-                  className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
-                />
+              {/* RATE */}
 
-              </div>
-            )}
+              <input
+                type="number"
+                placeholder="Rate / Hour"
+                value={rate}
+                onChange={(e) =>
+                  setRate(
+                    e.target.value
+                  )
+                }
+                className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
+              />
+
+              {/* AMOUNT */}
+
+              <input
+                type="number"
+                placeholder="Total Amount"
+                value={amount}
+                onChange={(e) =>
+                  setAmount(
+                    e.target.value
+                  )
+                }
+                className="bg-slate-800 border border-slate-700 rounded-xl px-4 py-3"
+              />
+
+            </div>
 
             {/* BUTTON */}
 
@@ -374,6 +355,7 @@ export default function Payouts() {
             <table className="w-full text-sm">
 
               <thead className="bg-slate-950 text-slate-400">
+
                 <tr>
 
                   <th className="text-left px-5 py-4">
@@ -405,6 +387,7 @@ export default function Payouts() {
                   </th>
 
                 </tr>
+
               </thead>
 
               <tbody>
@@ -433,16 +416,8 @@ export default function Payouts() {
 
                     <td className="px-5 py-4">
 
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-bold ${
-                          p.isManual
-                            ? "bg-amber-500/20 text-amber-400"
-                            : "bg-indigo-600/20 text-indigo-400"
-                        }`}
-                      >
-                        {p.isManual
-                          ? "MANUAL"
-                          : "AUTO"}
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400">
+                        MANUAL
                       </span>
 
                     </td>
@@ -450,9 +425,7 @@ export default function Payouts() {
                     {/* HOURS */}
 
                     <td className="px-5 py-4">
-                      {p.isManual
-                        ? p.manualHours
-                        : p.totalHours}
+                      {p.manualHours}
                     </td>
 
                     {/* RATE */}
@@ -465,9 +438,7 @@ export default function Payouts() {
 
                     <td className="px-5 py-4 font-bold text-emerald-400">
                       ₹
-                      {p.isManual
-                        ? p.manualAmount
-                        : p.amount}
+                      {p.manualAmount}
                     </td>
 
                     {/* PERIOD */}
@@ -519,6 +490,7 @@ export default function Payouts() {
             </table>
 
           </div>
+
         </div>
 
         {/* LOADING */}

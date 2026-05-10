@@ -8,6 +8,10 @@ import {
   MdSchool,
   MdBook,
   MdMoney,
+  MdFactCheck,
+  MdPayments,
+  MdChecklist,
+  MdGroups,
 } from "react-icons/md";
 import { useBranding } from "../../shared/hooks/useBranding";
 import { useEffect, useState } from "react";
@@ -26,10 +30,10 @@ export default function ClerkSidebar({ open, onClose }) {
     // { name: "Certifications", path: "/clerk/tests", icon: <ClipboardCheck size={20} /> },
     { name: "Students", path: "/clerk/students", icon: <MdPeople size={20} /> },
     // { name: "Teachers", path: "/clerk/teachers", icon: <MdSchool size={20} /> },
-    { name: "Classes", path: "/clerk/classes", icon: <MdBook size={20} /> },
-    { name: "Attendance", path: "/clerk/attendance", icon: <MdMenuBook size={20} /> },
-    { name: "Teacher Attendance", path: "/clerk/teacher-attendance", icon: <MdMenuBook size={20} /> },
-    { name: "Payouts", path: "/clerk/payouts", icon: <MdMoney size={20} /> },
+    { name: "Classes", path: "/clerk/classes", icon: <MdGroups size={20} /> },
+    { name: "Attendance", path: "/clerk/attendance", icon: <MdChecklist size={20} /> },
+    { name: "Teacher Attendance", path: "/clerk/teacher-attendance", icon: <MdFactCheck size={20} /> },
+    { name: "Payouts", path: "/clerk/payouts", icon: <MdPayments size={20} /> },
     { name: "Settings", path: "/clerk/settings", icon: <MdSettings size={20} /> },
   ];
 
@@ -114,17 +118,7 @@ export default function ClerkSidebar({ open, onClose }) {
           </div>
 
           {/* Add Course Button */}
-          <button
-            onClick={() => navigate("/admin/courses/new")}
-            className="flex items-center justify-center gap-2 w-full py-2 rounded-lg text-sm font-medium"
-            style={{
-              background: brand.colors.accent,
-              color: brand.colors.primary,
-            }}
-          >
-            <MdAdd size={18} />
-            New Course
-          </button>
+         
         </div>
       </aside>
     </>

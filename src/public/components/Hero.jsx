@@ -31,7 +31,7 @@ export default function Hero() {
 
         {/* LEFT CONTENT */}
         <div data-aos="fade-right" className="space-y-6">
-          <h1 className="text-4xl md:text-7xl font-bold leading-[1.2] tracking-tight text-emerald-700 malayalam">
+          <h1 className="text-4xl md:text-7xl font-bold leading-[1.2] tracking-tight text-emerald-700 malayalam " >
             {brand.hero?.title || "All-In-One Learning Platform For Competitive Exams"}
           </h1>
 
