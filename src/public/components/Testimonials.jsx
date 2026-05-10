@@ -1,123 +1,93 @@
+import { MdMap } from "react-icons/md";
 import { useBranding } from "../../shared/hooks/useBranding";
+import { Star } from "lucide-react";
 
 export default function Testimonials() {
   const brand = useBranding();
 
   const reviews = brand.reviews || [];
-  const primary = brand.colors?.primary || "#6366f1";
+  const primary = "#10b981"; // Xylem Emerald
 
   if (!reviews.length) return null;
 
   return (
-    <section className="relative w-full overflow-hidden py-24 bg-white">
+    <section className="relative w-full overflow-hidden py-24 bg-[#f8fafc]">
+      {/* Decorative Xylem Gradient Blur */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-100/50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 -z-0" />
       
-      {/* ===== THE BRAND BAND ===== */}
-      {/* This is the "anti-boxy" element. 
-          We skew it -3 degrees and make it slightly taller than the header.
-      */}
-      <div 
-        className="absolute top-0 left-0 w-full h-[400px] -translate-y-20 -skew-y-3 origin-top-right z-0 shadow-xl shadow-slate-200/50"
-        style={{ backgroundColor: primary }}
-      >
-        {/* Subtle pattern overlay to give the band texture */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-[1400px] px-6 lg:px-12">
-
-        {/* ===== HEADER (Content neutralized against the skew) ===== */}
-        <div className="flex flex-col items-center text-center mb-20">
-          <div
-            className={`
-              px-4 py-1.5 text-[11px] uppercase tracking-[0.2em] font-black mb-6
-              bg-white/20 backdrop-blur-md text-white border border-white/30
-              ${brand.theme.shape.buttonRadius}
-            `}
-          >
-            Success Stories
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-12">
+        
+        {/* HEADER: Google Style Clarity */}
+        <div className="flex flex-col items-center text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+             Community Feedback
           </div>
-
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-            What our learners say
+          <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight">
+            Loved by <span className="text-emerald-500">Thousands</span>
           </h2>
-          
-          <p className="text-emerald-50/80 max-w-lg font-medium">
-            Join thousands of students who have transformed their careers through our platform.
-          </p>
+          <div className="mt-4 flex items-center gap-2">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => <Star key={i} size={18} fill="currentColor" />)}
+            </div>
+            <span className="text-slate-500 font-bold">4.9/5 based on 500+ reviews</span>
+          </div>
         </div>
 
-        {/* ===== GRID ===== */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {reviews.slice(0, 3).map((t, i) => (
+        {/* GRID: Masonry-inspired column layout */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+          {reviews.map((t, i) => (
             <div
               key={i}
-              className={`
-                group relative flex flex-col h-full
-                transition-all duration-500 hover:-translate-y-2
-                 border border-slate-100 shadow-xl shadow-slate-200/40
-                ${brand.theme.shape.cardRadius}
-                p-8 md:p-10 bg-black text-white
-              `}
+              className="break-inside-avoid relative flex flex-col bg-white border border-slate-100 p-8 rounded-[24px] shadow-sm hover:shadow-xl transition-all duration-300 group"
             >
-              {/* ACCENT BORDER (Top glow) */}
-              <div 
-                className="absolute top-0 left-0 w-full h-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: primary }}
-              />
-
-              {/* QUOTE ICON */}
-              <div
-                className="absolute top-8 right-10 transition-transform group-hover:scale-110 duration-500"
-                style={{ color: primary + "95" }}
-              >
-                <svg width="45" height="45" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V12C14.017 12.5523 13.5693 13 13.017 13H11.017V21H14.017ZM5.017 21L5.017 18C5.017 16.8954 5.91243 16 7.017 16H10.017C10.5693 16 11.017 15.5523 11.017 15V9C11.017 8.44772 10.5693 8 10.017 8H6.017C5.46472 8 5.017 8.44772 5.017 9V12C5.017 12.5523 4.56928 13 4.017 13H2.017V21H5.017Z" />
-                </svg>
-              </div>
-
-              <div className="relative z-10 flex flex-col h-full">
-                {/* STARS */}
-                <div className="flex gap-1 mb-6 text-amber-400">
-                  {[...Array(t.rating || 5)].map((_, i) => (
-                    <svg key={i} width="16" height="16" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-
-                {/* TEXT */}
-                <p className={`text-md italic leading-relaxed mb-8 flex-grow text-slate-200`}>
-                  “{t.text}”
-                </p>
-
-                {/* AUTHOR */}
-                <div className="flex items-center gap-4 pt-6 border-t border-slate-50">
-                  <div
-                    className={`
-                      w-12 h-12 flex items-center justify-center
-                      text-white font-black text-base shadow-lg
-                    rounded-full
-                    `}
-                    style={{
-                      backgroundColor: primary,
-                      boxShadow: `0 8px 16px ${primary}44`,
-                    }}
+              {/* Google Style Top Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div 
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-inner"
+                    style={{ backgroundColor: i % 2 === 0 ? '#10b981' : '#064e3b' }}
                   >
                     {t.name?.charAt(0)}
                   </div>
-
                   <div>
-                    <div className={`font-semibold text-md text-slate-300 mb-0.5`}>
-                      {t.name}
-                    </div>
-                    <div className={`text-xs font-bold uppercase tracking-wider text-emerald-600/70`}>
-                      {t.role || "Verified Learner"}
-                    </div>
+                    <h4 className="font-bold text-slate-900 leading-tight">{t.name}</h4>
+                    <p className="text-[11px] text-slate-400 font-medium">Local Guide • {t.role || "Student"}</p>
                   </div>
                 </div>
+                {/* Google "G" Icon placeholder feel */}
+                <div className="opacity-20 group-hover:opacity-100 transition-opacity">
+                    <svg width="20" height="20" viewBox="0 0 24 24" className="fill-slate-300 group-hover:fill-emerald-500">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+              </div>
+
+              {/* RATING */}
+              <div className="flex gap-0.5 mb-4 text-amber-400">
+                {[...Array(t.rating || 5)].map((_, i) => (
+                  <Star key={i} size={14} fill="currentColor" strokeWidth={0} />
+                ))}
+              </div>
+
+              {/* TESTIMONIAL TEXT */}
+              <p className="text-slate-600 leading-relaxed text-sm">
+                "{t.text}"
+              </p>
+
+              {/* BOTTOM ACCENT */}
+              <div className="mt-6 pt-6 border-t border-slate-50 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">Verified Review</span>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* GOOGLE CTA FOOTER */}
+        <div className="mt-16 text-center">
+            <button className="px-8 py-3 bg-white border border-slate-200 rounded-full text-slate-700 font-bold shadow-sm hover:bg-slate-50 transition-all inline-flex items-center gap-2">
+            <MdMap className="w-10"/>     View more on Google
+            </button>
         </div>
       </div>
     </section>

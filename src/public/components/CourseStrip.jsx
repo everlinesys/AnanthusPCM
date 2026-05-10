@@ -2,136 +2,128 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import api from "../../shared/api";
 import { useBranding } from "../../shared/hooks/useBranding";
-import { BookOpen, ChevronRight, Star } from "lucide-react";
+import { BookOpen, ChevronRight, Star, GraduationCap } from "lucide-react";
 
 export default function FeaturedCoursesStrip() {
     const [courses, setCourses] = useState([]);
+    const [groups, setGroups] = useState([]);
     const brand = useBranding();
-    const [scrollProgress, setScrollProgress] = useState(0);
-    const scrollRef = useRef(null);
+
     useEffect(() => {
         async function load() {
             try {
-                const { data } = await api.get("/courses");
-                setCourses(data);
+                const [courseRes, groupRes] = await Promise.all([
+                    api.get("/courses"),
+                    api.get("/course-groups"),
+                ]);
+                setCourses(courseRes.data || []);
+                setGroups(groupRes.data || []);
             } catch (err) {
                 console.error(err);
             }
         }
         load();
     }, []);
-    const handleScroll = () => {
-        if (scrollRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
-            const progress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
-            setScrollProgress(progress);
-        }
-    };
+
+    // Course Card Component for Reusability
+    const CourseCard = ({ course }) => (
+        <Link
+            to={`/courses/${course.id}`}
+            className="flex flex-col bg-white rounded-3xl overflow-hidden border border-emerald-50 shadow-sm hover:shadow-xl transition-all duration-300 group"
+        >
+            <div className="h-48 bg-emerald-50 overflow-hidden relative">
+                {/* Top Badge (Optional: e.g. 'Popular') */}
+                <div className="absolute top-3 left-3 z-10 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-black text-emerald-600 uppercase tracking-tighter shadow-sm">
+                    Trending
+                </div>
+
+                {course.thumbnail ? (
+                    <img
+                        src={`${api.defaults.baseURL.replace("/api", "")}${course.thumbnail}`}
+                        alt={course.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    />
+                ) : (
+                    <div className="h-full flex items-center justify-center text-emerald-200">
+                        <GraduationCap size={48} />
+                    </div>
+                )}
+            </div>
+
+            <div className="p-5 flex flex-col flex-grow space-y-3">
+                <h3 className="font-bold text-zinc-800 text-lg line-clamp-2 group-hover:text-emerald-600 transition-colors">
+                    {course.title}
+                </h3>
+
+                <div className="flex items-center gap-4 text-xs font-bold text-zinc-400">
+                    <div className="flex items-center gap-1">
+                        <Star size={14} className="text-amber-400 fill-amber-400" /> 
+                        <span className="text-zinc-700">{course.rating || 4.8}</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                        <BookOpen size={14} className="text-emerald-500" /> 
+                        <span>{course.lessonsCount || 12} Lessons</span>
+                    </div>
+                </div>
+
+                <div className="pt-3 border-t border-emerald-50 flex items-center justify-between">
+                    <span className="text-emerald-600 font-black text-lg">
+                        Enrol Now
+                    </span>
+                    <div className="w-8 h-8 rounded-full bg-emerald-50 flex items-center justify-center group-hover:bg-emerald-500 group-hover:text-white transition-all">
+                        <ChevronRight size={18} />
+                    </div>
+                </div>
+            </div>
+        </Link>
+    );
 
     return (
-        <section className="bg-white py-6 overflow-hidden" id="courses"
-        >
-
-            <div className="max-w-screen mx-auto px-6 py-6 md:px-16 " style={{ backgroundColor: brand.colors.primary }}>
-
-                {/* Header */}
-                <div className="flex items-center justify-between mb-6 text-white">
-                    <h2 className="text-xl font-bold">
-                        Our Courses →
-                    </h2>
-
-                    <Link
-                        to="/courses"
-                        className="text-sm opacity-80 hover:opacity-100"
-                        style={{ color: "white" }}
-                    >
-                        See all
-                    </Link>
-                </div>
-
-
-                <div
-                    ref={scrollRef}
-                    onScroll={handleScroll}
-                    className="relative z-10 flex gap-6 overflow-x-auto pb-8 no-scrollbar snap-x snap-mandatory"
-                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-                >
-                    {courses.slice(0, 10).map((course) => (
-                        <Link
-                            to={`/courses/${course.id}`}
-                            key={course.id}
-                            className="min-w-[280px] md:min-w-[320px] bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 group snap-start"
-                        >
-                            {/* Thumbnail */}
-                            <div className="h-44 bg-slate-100 overflow-hidden relative">
-                                {course.thumbnail ? (
-                                    <img
-                                        src={`${api.defaults.baseURL.replace("/api", "")}${course.thumbnail}`}
-                                        alt={course.title}
-                                        className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-                                    />
-                                ) : (
-                                    <div className="h-full flex items-center justify-center text-xs text-slate-400">No Preview</div>
-                                )}
-                                <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur text-[10px] font-bold uppercase tracking-wider rounded-lg text-slate-800 shadow-sm">
-                                    {course.type || "Course"}
-                                </div>
+        <section className="bg-white py-16 px-6 md:px-16" id="courses">
+            <div className="max-w-7xl mx-auto space-y-16">
+                
+                {/* ================= GROUPED COURSES ================= */}
+                {groups.map((group) => (
+                    <div key={group.id} className="space-y-8">
+                        {/* Header Style matching Xylem */}
+                        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                            <div className="space-y-1">
+                                <span className="text-emerald-500 font-bold text-sm uppercase tracking-widest">
+                                    Explore Categories
+                                </span>
+                                <h2 className="text-3xl md:text-4xl font-black text-zinc-900">
+                                    {group.name}
+                                </h2>
                             </div>
+                            <Link to="/courses" className="text-emerald-600 font-bold flex items-center gap-1 hover:gap-2 transition-all">
+                                View All Programs <ChevronRight size={20} />
+                            </Link>
+                        </div>
 
-                            {/* Content */}
-                            <div className="p-6 space-y-3">
-                                <div className="flex items-center gap-2">
-                                    <div className="w-5 h-5 rounded-md bg-slate-100 flex items-center justify-center text-[10px] font-bold">E</div>
-                                    <span className="text-[11px] text-slate-400 font-bold uppercase tracking-tighter">
-                                       {brand.siteName || "LMS Platform"}
-                                    </span>
-                                </div>
+                        {/* Grid: 1 Column on Mobile, 2 on Tablet, 3/4 on Desktop */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            {group.courses?.map((item) => (
+                                <CourseCard key={item.course.id} course={item.course} />
+                            ))}
+                        </div>
+                    </div>
+                ))}
 
-                                <h3 className="font-bold text-slate-900 leading-snug line-clamp-2 h-10">
-                                    {course.title}
-                                </h3>
-
-                                <div className="flex items-center justify-between pt-2 border-t border-slate-50">
-                                    <div className="flex items-center gap-3">
-                                        <div className="flex items-center gap-1 text-amber-500 font-bold text-xs">
-                                            <Star size={14} fill="currentColor" /> {course.rating || 4.8}
-                                        </div>
-                                        <div className="flex items-center gap-1 text-slate-400 font-bold text-xs">
-                                            <BookOpen size={14} /> {course.lessonsCount.toString() || 12}
-                                        </div>
-                                    </div>
-                                    <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
-                                        <ChevronRight size={16} />
-                                    </div>
-                                </div>
-                            </div>
-                        </Link>
-                    ))}
-                </div>
-
-                {/* STYLIZED DOT SCROLLBAR */}
-                <div className="relative z-10 mt-4 flex justify-center items-center gap-2">
-                    {/* Background Track */}
-                    <div className="relative w-48 h-1.5 bg-white/20 rounded-full overflow-hidden">
-                        {/* The "Liquid" Progress Filler */}
-                        <div
-                            className="absolute top-0 left-0 h-full bg-white transition-all duration-200 ease-out rounded-full"
-                            style={{ width: `${scrollProgress}%` }}
-                        />
+                {/* ================= ALL COURSES STRIP ================= */}
+                <div className="pt-12 border-t border-zinc-100">
+                    <div className="mb-8">
+                        <h2 className="text-2xl font-black text-zinc-800">
+                            Recommended For You
+                        </h2>
+                        <div className="w-12 h-1.5 bg-emerald-500 rounded-full mt-2" />
                     </div>
 
-                    {/* Dot Indicators */}
-                    <div className="flex gap-1.5">
-                        {[...Array(5)].map((_, i) => (
-                            <div
-                                key={i}
-                                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${(scrollProgress / 20) >= i ? 'bg-white scale-125' : 'bg-white/30'
-                                    }`}
-                            />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        {courses.slice(0, 4).map((course) => (
+                            <CourseCard key={course.id} course={course} />
                         ))}
                     </div>
                 </div>
-
             </div>
         </section>
     );

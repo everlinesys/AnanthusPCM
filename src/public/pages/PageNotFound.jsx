@@ -6,7 +6,7 @@ export default function PageNotFound() {
   const brand = useBranding();
 
   return (
-    <div className={`${brand.theme.layout.page} min-h-screen flex items-center justify-center px-4`}>
+    <div className={`${brand.theme.layout.page} min-h-screen w-[100vw] flex items-center justify-center px-4`}>
       
       <div className="text-center max-w-md">
 

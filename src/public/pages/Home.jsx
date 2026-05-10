@@ -8,6 +8,7 @@ import FeaturedCoursesStrip from "../components/CourseStrip";
 import Team from "../components/Team";
 import MissionVision from "../components/MissionVision";
 import AboutUs from "../components/AboutUs";
+import Claim from "../components/Claim";
 
 
 export default function Home() {
@@ -15,10 +16,10 @@ export default function Home() {
     <div className="">
       <Hero />
       <PreviewVideo />
-
+      <Claim />
       <FeaturedCoursesStrip />
-      {/* <MissionVision />
-      <AboutUs /> */}
+      {/* <MissionVision /> */}
+      <AboutUs />
       <Testimonials />
       <Enroll />
       <CTASection />

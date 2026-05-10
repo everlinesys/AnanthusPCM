@@ -1,44 +1,37 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import api from "../../shared/api";
 import { getUser } from "../../shared/auth";
 import VideoPlayer from "../../shared/video/VideoPlayer";
 import { useBranding } from "../../shared/hooks/useBranding";
+import { CheckCircle, PlayCircle, ShieldCheck, CreditCard, ChevronRight } from "lucide-react";
 
 export default function CourseDetails() {
   const { courseId } = useParams();
   const user = getUser();
   const brand = useBranding();
-
+  const [selectedPlan, setSelectedPlan] = useState("full");
   const [course, setCourse] = useState(null);
   const [units, setUnits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [owned, setOwned] = useState(false);
 
-  const primary = brand?.primaryColor || "#059669";
-  const accent = brand?.accentColor || "#ffffff";
+  const primaryEmerald = "#10b981";
 
-  function handleWhatsAppEnroll() {
-    const message = `Hi, I want to enroll in this course.
-
-Name:
-Email:
-Course: ${course.title}`;
-
-    const url = `https://wa.me/${brand.contact.whatsapp}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
-  }
   useEffect(() => {
     async function load() {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+      window.scrollTo({ top: 0, behavior: "smooth" });
       try {
         const courseRes = await api.get(`/courses/${courseId}`);
         const unitsRes = await api.get(`/units?courseId=${courseId}`);
+        const data = courseRes.data;
 
-        setCourse(courseRes.data);
+        setCourse({
+          ...data,
+          installmentOptions: Array.isArray(data.installmentOptions)
+            ? data.installmentOptions
+            : JSON.parse(data.installmentOptions || "[]"),
+        });
         setUnits(unitsRes.data);
 
         if (user) {
@@ -52,15 +45,15 @@ Course: ${course.title}`;
         setLoading(false);
       }
     }
-
     load();
   }, [courseId]);
 
   async function buy(courseId) {
-    const user = getUser();
     if (!user) return (window.location = "/register");
-
-    const orderRes = await api.post("/payments/create-order", { courseId });
+    const orderRes = await api.post("/payments/create-order", {
+      courseId,
+      plan: selectedPlan === "full" ? 1 : selectedPlan,
+    });
 
     const options = {
       key: orderRes.data.key,
@@ -75,161 +68,157 @@ Course: ${course.title}`;
           razorpay_payment_id: response.razorpay_payment_id,
           razorpay_signature: response.razorpay_signature,
           courseId,
+          plan: selectedPlan === "full" ? 1 : selectedPlan,
         });
         window.location = `/student/watch/${courseId}`;
       },
     };
-
     new window.Razorpay(options).open();
   }
 
-  if (loading) return <div className="py-20 text-center">Loading course...</div>;
-  if (!course) return <div className="py-20 text-center">Course not found!!!.</div>;
+  if (loading) return <div className="py-40 text-center font-bold text-slate-400">Loading curriculum...</div>;
+  if (!course) return <div className="py-40 text-center font-bold text-rose-500">Course not found.</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 min-w-[100vw]">
+    <div className="min-h-screen bg-white">
+      {/* ===== PREMIUM HERO ===== */}
+      <section className="relative bg-[#0f172a] pt-20 pb-32 overflow-hidden">
+        {/* Abstract Background Accents */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-emerald-500/10 -skew-x-12 translate-x-20" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-[120px]" />
 
-      {/* ===== HERO ===== */}
-      <div
-        className="text-white py-16  md:px-16"
-        style={{ backgroundColor: primary }}
-      >
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-
-          {/* LEFT */}
-          <div className="space-y-6">
-            <h1 className="text-4xl md:text-5xl font-black">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+          {/* LEFT: Content */}
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest">
+              Premium Science Batch
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-black text-white leading-tight">
               {course.title}
             </h1>
 
-            <p className="opacity-90 max-w-lg leading-relaxed whitespace-pre-line">
+            <p className="text-slate-400 text-lg leading-relaxed whitespace-pre-line max-w-xl">
               {course.description}
             </p>
 
-            <div className="text-3xl  font-bold">
-              ₹{course.price} <span className="line-through text-white/70 text-2xl"> ₹{course.oldPrice}</span>
+            <div className="flex items-center gap-6">
+              <div className="space-y-1">
+                <p className="text-slate-500 text-xs font-bold uppercase tracking-tighter">Current Price</p>
+                <div className="text-4xl font-black text-white flex items-center gap-3">
+                  ₹{course.price}
+                  <span className="text-xl text-slate-500 line-through font-medium">₹{course.oldPrice}</span>
+                </div>
+              </div>
+              <div className="h-12 w-px bg-slate-800" />
+              <div className="text-emerald-400 font-bold text-sm">
+                Save {Math.round(((course.oldPrice - course.price) / course.oldPrice) * 100)}% Today
+              </div>
             </div>
 
-            {/* ACTION BUTTONS */}
-            {!user && (
-              <a
-                href="/register"
-                className="inline-block px-8 py-3 bg-white text-black rounded-xl font-semibold"
-              >
-                Login to Enroll
-              </a>
-            )}
-
-            {user && owned && (
-              <button
-                onClick={() => (window.location = `/student/watch/${courseId}`)}
-                className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold"
-              >
-                Continue Learning
-              </button>
-            )}
-
-            {/* {user && !owned && (
-              <button
-                onClick={() => buy(courseId)}
-                className="px-8 py-3 bg-white text-black rounded-xl font-semibold"
-              >
-                Purchase Course
-              </button>
-            )} */}
-
-            {user && !owned && (
-              <button
-                onClick={handleWhatsAppEnroll}
-                className="px-8 py-3 bg-green-500 text-white rounded-xl font-semibold"
-              >
-                Enroll via WhatsApp
-              </button>
-            )}
-          </div>
-
-          {/* RIGHT — VIDEO */}
-          <div className="rounded-2xl overflow-hidden shadow-2xl bg-black">
-
-            {course.introBunnyVideoId ? (
-              <VideoPlayer videoId={course.introBunnyVideoId} />
-            ) : course.thumbnail ? (
-              <img
-                src={`${api.defaults.baseURL.replace("/api", "")}${course.thumbnail}`}
-                className="w-full h-full object-cover"
-                alt={course.title}
-              />
-            ) : (
-              <div className="h-64 flex items-center justify-center text-gray-400">
-                No preview available
+            {/* PAYMENT PLANS */}
+            {course.installmentOptions?.length > 0 && !owned && (
+              <div className="p-6 bg-slate-800/40 rounded-3xl border border-slate-700/50 space-y-4">
+                <p className="text-xs font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                   <CreditCard size={14} /> Flexible Payment Options
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <button
+                    onClick={() => setSelectedPlan("full")}
+                    className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${selectedPlan === "full" ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "bg-slate-700 text-slate-300 hover:bg-slate-600"}`}
+                  >
+                    Full Access
+                  </button>
+                  {course.installmentOptions.filter(m => m > 0).map((months) => (
+                    <button
+                      key={months}
+                      onClick={() => setSelectedPlan(months)}
+                      className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${selectedPlan === months ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20" : "bg-slate-700 text-slate-300 hover:bg-slate-600"}`}
+                    >
+                      {months} Months
+                    </button>
+                  ))}
+                </div>
+                {selectedPlan !== "full" && (
+                  <p className="text-emerald-400 text-xs font-bold italic">
+                    Pay only ₹{Math.ceil(course.price / selectedPlan)} / month
+                  </p>
+                )}
               </div>
             )}
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-4 pt-4">
+              {owned ? (
+                <button
+                  onClick={() => (window.location = `/student/watch/${courseId}`)}
+                  className="px-10 py-4 bg-emerald-500 text-white rounded-2xl font-black shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center gap-2"
+                >
+                  <PlayCircle size={20} /> Resume Learning
+                </button>
+              ) : (
+                <button
+                  onClick={() => buy(courseId)}
+                  className="px-10 py-4 bg-emerald-500 text-white rounded-2xl font-black shadow-xl shadow-emerald-500/20 hover:bg-emerald-600 transition-all flex items-center gap-2"
+                >
+                  Enroll Now <ChevronRight size={20} />
+                </button>
+              )}
+              <div className="flex items-center gap-2 text-slate-400 text-xs font-bold">
+                 <ShieldCheck className="text-emerald-500" /> Secure Payment via Razorpay
+              </div>
+            </div>
           </div>
 
+          {/* RIGHT: Video Preview */}
+          <div className="relative group" data-aos="zoom-in">
+            <div className="absolute -inset-4 bg-emerald-500/20 rounded-[32px] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative rounded-[32px] overflow-hidden border-8 border-slate-800 shadow-2xl bg-black aspect-video">
+              {course.introBunnyVideoId ? (
+                <VideoPlayer videoId={course.introBunnyVideoId} />
+              ) : (
+                <img
+                  src={`${api.defaults.baseURL.replace("/api", "")}${course.thumbnail}`}
+                  className="w-full h-full object-cover opacity-80"
+                  alt={course.title}
+                />
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* ===== CURRICULUM ===== */}
-      <div className="max-w-5xl mx-auto px-6 py-16 text-black" style={{ color: primary, background: accent }}>
+      {/* ===== CURRICULUM SECTION ===== */}
+      <section className="max-w-4xl mx-auto px-6 py-24">
+        <div className="flex items-center justify-between mb-12">
+           <div>
+              <h2 className="text-3xl font-black text-slate-900">Course Curriculum</h2>
+              <p className="text-slate-500 text-sm mt-1">{units.length} High-Quality Lessons</p>
+           </div>
+           <div className="hidden sm:block h-px flex-grow mx-8 bg-slate-100" />
+           <CheckCircle className="text-emerald-500" />
+        </div>
 
-        <h2 className="text-2xl font-bold ">
-          Course Curriculum
-        </h2>
-
-        <div className="bg-white rounded-2xl shadow divide-y">
+        <div className="space-y-4">
           {units.map((unit, index) => (
-            <div key={unit.id} className="p-5 flex gap-4 items-center">
-
-              <div
-                className="w-8 h-8 min-w-[32px] min-h-[32px] flex-shrink-0 rounded-full text-white flex items-center justify-center text-sm font-bold"
-                style={{ backgroundColor: primary }}
-              >
-                {index + 1}
+            <div 
+              key={unit.id} 
+              className="group flex items-center gap-5 p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:border-emerald-200 hover:shadow-xl hover:shadow-emerald-100/50 transition-all duration-300"
+            >
+              <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 font-black group-hover:bg-emerald-500 group-hover:text-white group-hover:border-emerald-500 transition-all">
+                {String(index + 1).padStart(2, '0')}
               </div>
-
-              <div className="font-medium text-gray-800">
-                {unit.title}
+              <div className="flex-grow">
+                <h4 className="font-bold text-slate-800 group-hover:text-emerald-600 transition-colors">
+                  {unit.title}
+                </h4>
+                <p className="text-[10px] uppercase tracking-widest text-slate-400 font-black mt-1">Lesson Module</p>
               </div>
-
+              <PlayCircle className="text-slate-200 group-hover:text-emerald-500 transition-colors" size={24} />
             </div>
           ))}
         </div>
-
-      </div>
-
-      <div className="flex flex-col items-center justify-center text-center py-16 px-6 bg-gradient-to-br from-gray-800 to-gray-900 ">
-
-        {/* Heading */}
-       
-
-        {/* ACTION BUTTONS */}
-        {!user && (
-          <a
-            href="/login"
-            className="px-8 py-3 bg-white text-black rounded-xl font-semibold shadow-md hover:scale-105 hover:shadow-lg transition duration-300"
-          >
-            Login to Enroll
-          </a>
-        )}
-
-        {user && owned && (
-          <button
-            onClick={() => (window.location = `/student/watch/${courseId}`)}
-            className="px-8 py-3 bg-green-500 text-white rounded-xl font-semibold shadow-md hover:scale-105 hover:bg-green-600 transition duration-300"
-          >
-            Continue Learning
-          </button>
-        )}
-
-        {user && !owned && (
-          <button
-            onClick={() => buy(courseId)}
-            className="px-8 py-3 bg-white text-black rounded-xl font-semibold shadow-md hover:scale-105 hover:bg-gray-100 transition duration-300"
-          >
-            Purchase Course
-          </button>
-        )}
-      </div>
+      </section>
     </div>
   );
 }

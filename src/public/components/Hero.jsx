@@ -1,18 +1,10 @@
 import { MdWhatsapp } from "react-icons/md";
 import { useBranding } from "../../shared/hooks/useBranding";
 import { useState } from "react";
+
 export default function Hero() {
   const brand = useBranding();
-  const initials =
-    brand.name
-      ?.replace(/[^A-Za-z ]/g, "")
-      .split(" ")
-      .filter(Boolean)
-      .map(w => w[0].toUpperCase())
-      .slice(0, 2) || ["A", "U"];
-
-  const avatarLetters = [...initials, ...initials].slice(0, 4);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const whatsappNumber = brand.contact?.whatsapp;
 
@@ -25,217 +17,100 @@ export default function Hero() {
   };
 
   return (
-    <section className={`${brand.theme.layout.container} relative overflow-hidden`}>
+    <section className="relative overflow-hidden bg-white min-h-[90vh] flex items-center">
+      {/* Grid Background Pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.15]"
+        style={{
+          backgroundImage: `linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)`,
+          backgroundSize: '40px 40px'
+        }}
+      />
 
-      {/* Decorative Background Elements (Leave As Design Layer) */}
-      {/* <div className="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full blur-3xl opacity-30"
-        style={{ backgroundColor: brand.colors.primary }}
-      ></div>
+      <div className="container mx-auto relative z-10 grid md:grid-cols-2 gap-8 items-center px-6 py-12 md:py-24">
 
-      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-64 h-64 rounded-full blur-3xl opacity-20"
-        style={{ backgroundColor: brand.colors.primary }}
-      ></div> */}
-
-      <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center p-8 md:p-16">
-
-        {/* LEFT */}
-        <div className="space-y-6 text-center md:text-left ">
-
-          {/* Image top mobile only */}
-          <div className="relative md:hidden md:block group text-center items-center justify-center h-[30vh]">
-
-            {brand.hero.image ? (
-              <img
-                src={brand.hero.image}
-                alt={brand.siteName}
-               
-                className={`relative z-10 ${brand.theme.shape?.radius || ""} align-center object-cover aspect-[4/4] h-full w-auto mx-auto `}
-              />
-            ) : (
-              <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/3] w-full flex items-center justify-center`}>
-                <div className="text-white/10 font-black text-8xl uppercase -rotate-12 select-none tracking-tighter">
-                  Learn
-                </div>
-              </div>
-            )}
-
-          </div>
-          {/* Badge */}
-          <div className={`inline-flex items-center gap-2 px-3 py-1 ${brand.theme.layout.panel} ${brand.theme.shape?.radius || ""}`}>
-            <span className="relative flex h-2 w-2">
-              <span
-                className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
-                style={{ backgroundColor: brand.colors.primary }}
-              />
-              <span
-                className="relative inline-flex rounded-full h-2 w-2"
-                style={{ backgroundColor: brand.colors.accent }}
-              />
-            </span>
-
-            <span className={`text-[10px] uppercase tracking-widest ${brand.theme.text?.label || ""}`}>
-              Live Learning Portal
-            </span>
-          </div>
-
-          {/* Title */}
-          <h1
-            className="text-3xl md:text-5xl font-bold leading-[1.1] tracking-tight malayalam "
-          // style={{ color: brand.colors.primary }}
-          >
-            {brand.hero?.title || "Welcome to eLearn"}
+        {/* LEFT CONTENT */}
+        <div data-aos="fade-right" className="space-y-6">
+          <h1 className="text-4xl md:text-7xl font-bold leading-[1.2] tracking-tight text-emerald-700 malayalam">
+            {brand.hero?.title || "All-In-One Learning Platform For Competitive Exams"}
           </h1>
 
-          {/* Subtitle */}
-          <p className={`${brand.theme.text?.body || ""} opacity-80 max-w-lg text-xl md:text-xl`}>
-            {brand.hero?.subtitle || "Practical courses for real growth."}
+          <p className="text-zinc-700 text-lg md:text-xl max-w-xl leading-relaxed">
+            {brand.hero?.subtitle ||
+              "We Prepare Students For Entrance, Government And Commerce Exams, As Well As Offering Personalized Tuition In Science And Commerce."}
           </p>
 
-          {/* CTA Row */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-
-            {/* Button */}
-            <a
-              href="#courses"
-              className={`group inline-flex items-center justify-center px-8 py-4 font-black text-sm tracking-wide transition-all duration-300 active:scale-95 ${brand.theme.button.primary} ${brand.theme.shape?.radius || ""}`}
-              style={{ background: brand.colors.primary, color: brand.colors.accent }}
+          <div className="flex flex-wrap gap-4 pt-4">
+            <button
+              className="px-8 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl transition-all transform hover:scale-105 shadow-lg shadow-emerald-200"
+              onClick={() => window.open("/register")} >
+              Register Now
+            </button>
+            <a href="#courses"
+              className="px-8 py-3 border-2 border-emerald-500 text-emerald-600 font-bold rounded-xl hover:bg-emerald-50 transition-all"
             >
-              <span className="flex items-center gap-2" >
-                Browse Courses
-                <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
+              Explore Courses
             </a>
-
-            {/* Avatars */}
-            <div className="flex -space-x-3 overflow-hidden">
-              {/* {avatarLetters.map((letter, i) => (
-                <div
-                  key={i}
-                  className="inline-flex h-8 w-8 rounded-full border border-black/20 items-center justify-center text-[11px] font-black"
-                  style={{
-                    backgroundColor: brand.colors.primary,
-                    color: brand.colors.accent,
-                  }}
-                >
-                  {letter}
-                </div>
-              ))} */}
-
-              {[1, 2, 3, 4].map((num, i) => (
-                <div
-                  key={i}
-                  className="inline-flex h-8 w-8 rounded-full border border-black/20 items-center justify-center overflow-hidden"
-                  style={{
-                    backgroundColor: brand.colors.primary,
-                  }}
-                >
-                  <img
-                    src={`/icns/${num}.ico`}
-                    alt={`icon-${num}`}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ))}
-
-              <div className="pl-5 pt-3 text-xs font-bold opacity-70 uppercase tracking-tighter">
-                {brand.students} Students
-              </div>
-            </div>
-
           </div>
         </div>
 
-        {/* RIGHT IMAGE */}
-        <div className="relative hidden md:block group ">
+        {/* RIGHT IMAGE SECTION */}
+        <div data-aos="fade-left" className="relative flex justify-center items-center">
+          {/* Green Diamond Shape Background */}
+          <div className="absolute w-64 h-64 md:w-96 md:h-96 bg-emerald-500 rotate-45 rounded-3xl opacity-80" />
 
-          {/* <div className={`absolute inset-0 ${brand.theme.layout.panel} rotate-3 transition-transform group-hover:rotate-6`} /> */}
-
+          {/* Instructor Image */}
           {brand.hero?.image ? (
             <img
               src={brand.hero.image}
-              alt="Learning"
-              className={`relative z-10 ${brand.theme.shape?.radius || ""}  object-cover aspect-[4/4] h-full `}
+              alt="Instructors"
+              className="relative z-10 w-full max-w-md object-contain drop-shadow-2xl"
             />
           ) : (
-            <div className={`relative z-10 ${brand.theme.layout.panel} aspect-[4/4] w-full flex items-center justify-center`}>
-              <div className="text-white/10 font-black text-8xl uppercase -rotate-12 select-none tracking-tighter">
-                Learn
-              </div>
+            <div className="relative z-10 w-80 h-80 bg-zinc-200 rounded-full flex items-center justify-center text-zinc-400 font-bold italic">
+              Instructor Image
             </div>
           )}
 
+          {/* Floating Call Icon (Reference Image style) */}
+          <div className="absolute bottom-10 left-10 z-20 bg-orange-500 p-4 rounded-full shadow-xl text-white animate-bounce">
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
+            </svg>
+          </div>
         </div>
-
       </div>
-      <div className="fixed bottom-6 right-6 z-50">
 
-        {/* Expanded Chat Box */}
+      {/* WhatsApp Floating Support */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
         {open && (
-          <div
-            className="w-72 rounded-2xl shadow-2xl overflow-hidden mb-3"
-            style={{ backgroundColor: "white" }}
-          >
-            {/* Header */}
+          <div className="w-72 rounded-2xl shadow-2xl overflow-hidden mb-4 border border-zinc-100 bg-white animate-in slide-in-from-bottom-5">
             <div className="px-4 py-3 text-white font-bold bg-emerald-600 flex justify-between items-center">
-              {brand.siteName} Support
-              <button
-                style={{ background: "none" }}
-                onClick={() => setOpen(false)}
-              >
-                ✕
-              </button>
+              <span>{brand.siteName} Support</span>
+              <button onClick={() => setOpen(false)}>✕</button>
             </div>
-
-            {/* Body */}
-            <div className="p-4 text-sm text-gray-700 space-y-2">
-              <p className="font-semibold">Hi 👋</p>
-
-              <p>
-                Welcome to <span className="font-semibold">{brand.siteName}</span>.
-              </p>
-
-              <p>Have questions about courses or enrollment?</p>
-
-              <p className="text-xs text-gray-500">
-                Our team typically replies instantly on WhatsApp.
-              </p>
+            <div className="p-4 text-sm text-zinc-600">
+              <p className="font-bold text-zinc-800">Hi 👋</p>
+              <p>Have questions about courses? Chat with us!</p>
             </div>
-
-            {/* Action */}
-            <div className="p-3 pt-0">
+            <div className="p-3">
               <button
                 onClick={openWhatsApp}
-                className="w-full py-3 text-white font-semibold transition"
-                style={{
-                  background: "rgb(5 150 105)",
-                  borderRadius: "50px",
-                }}
+                className="w-full py-2 bg-[#25D366] text-white font-bold rounded-full flex items-center justify-center gap-2"
               >
-                <MdWhatsapp className="inline mr-2" size={20} />
-                Chat on WhatsApp
+                <MdWhatsapp size={20} /> Chat Now
               </button>
             </div>
           </div>
-
         )}
 
-        {/* Floating Button */}
-        {!open && (
-          <button
-            onClick={() => setOpen(!open)}
-            className="w-18 h-18 rounded-full flex items-center justify-center text-white shadow-xl"
-            style={{ background: "rgb(5 150 105)", borderRadius: "40%" }}
-          >
-            <MdWhatsapp size={28} />
-          </button>
-        )}
-
-
-
+        <button
+          onClick={() => setOpen(!open)}
+          className="w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center text-white shadow-xl hover:scale-110 transition-transform"
+        >
+          <MdWhatsapp size={32} />
+        </button>
       </div>
     </section>
-
   );
 }

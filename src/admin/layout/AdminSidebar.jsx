@@ -5,10 +5,12 @@ import {
   MdPeople,
   MdSettings,
   MdAdd,
+  MdSchool,
 } from "react-icons/md";
 import { useBranding } from "../../shared/hooks/useBranding";
 import { useEffect, useState } from "react";
 import api from "../../shared/api";
+import { ClipboardCheck } from "lucide-react";
 
 export default function AdminSidebar({ open, onClose }) {
   const brand = useBranding();
@@ -19,7 +21,9 @@ export default function AdminSidebar({ open, onClose }) {
   const menu = [
     { name: "Dashboard", path: "/admin", icon: <MdDashboard size={20} /> },
     { name: "Courses", path: "/admin/courses", icon: <MdMenuBook size={20} /> },
+    // { name: "Certifications", path: "/admin/tests", icon: <ClipboardCheck size={20} /> },
     { name: "Students", path: "/admin/students", icon: <MdPeople size={20} /> },
+    { name: "Teachers", path: "/admin/teachers", icon: <MdSchool size={20} /> },
     { name: "Settings", path: "/admin/settings", icon: <MdSettings size={20} /> },
   ];
 
@@ -57,12 +61,12 @@ export default function AdminSidebar({ open, onClose }) {
           md:translate-x-0
         `}
         style={{
-          background: brand.colors.primary,
+          background: "white",
           color: brand.colors.accent,
         }}
       >
         {/* LOGO */}
-        <h2 className="text-xl font-bold mb-8">
+        <h2 className="text-xl font-bold mb-8 text-black">
           {brand.siteName?.toUpperCase() || "ELearn"}
         </h2>
 
@@ -78,7 +82,7 @@ export default function AdminSidebar({ open, onClose }) {
               style={({ isActive }) => ({
                 color: isActive
                   ? brand.colors.primary
-                  : brand.colors.accent,
+                  : "black",
                 background: isActive
                   ? brand.colors.accent
                   : "transparent",

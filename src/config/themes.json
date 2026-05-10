@@ -1,4 +1,59 @@
 {
+  "schoolAcademic": {
+    "layout": {
+      "page": "bg-[#F8FAFC]",
+      "container": "bg-[#F8FAFC] text-[#0F172A]",
+      "panel": "bg-white border border-[#E2E8F0] shadow-sm",
+      "header": "bg-white border-b border-[#E2E8F0]",
+      "footer": "bg-white border-t border-[#E2E8F0]"
+    },
+
+    "shape": {
+      "radius": "rounded-xl",
+      "cardRadius": "rounded-2xl",
+      "buttonRadius": "rounded-xl",
+      "inputRadius": "rounded-xl"
+    },
+
+    "text": {
+      "title": "font-bold tracking-tight text-[#0F172A]",
+      "subtitle": "text-[#334155] font-medium",
+      "body": "text-[#64748B]",
+      "label": "text-[#475569] text-xs font-semibold uppercase tracking-wide"
+    },
+
+    "button": {
+      "primary": "bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-md",
+      "secondary": "bg-white border border-[#CBD5F5] text-[#1E293B] hover:bg-[#F1F5F9]",
+      "accent": "bg-[#22C55E] hover:bg-[#16A34A] text-white",
+      "danger": "bg-red-500 hover:bg-red-600 text-white"
+    },
+
+    "input": {
+      "base": "bg-white border border-[#CBD5E1] text-[#0F172A] placeholder:text-[#94A3B8] focus:border-[#2563EB] outline-none"
+    },
+
+    "badge": {
+      "base": "bg-[#EFF6FF] text-[#1D4ED8] border border-[#BFDBFE]"
+    },
+
+    "card": {
+      "soft": "bg-white border border-[#E2E8F0] shadow-sm",
+      "glass": "bg-white/80 backdrop-blur border border-[#E2E8F0]"
+    },
+
+    "heroLayout": {
+      "wrapper": "grid lg:grid-cols-2 gap-10 items-center",
+      "content": "space-y-5",
+      "image": "w-full max-w-md mx-auto"
+    },
+
+    "ctaSection": {
+      "wrapper": "bg-[#2563EB]/5 border border-[#BFDBFE] rounded-2xl p-8 text-center space-y-4",
+      "title": "text-xl font-bold text-[#1D4ED8]",
+      "subtitle": "text-[#334155]"
+    }
+  },
   "darkModern": {
     "layout": {
       "page": "bg-[#020617] text-white",
@@ -212,49 +267,6 @@
       "wrapper": "bg-[#FDE68A]/40 border border-[#FCD34D] rounded-3xl p-8 text-center space-y-4",
       "title": "text-xl sm:text-2xl font-bold text-[#92400E]",
       "subtitle": "text-[#78350F]"
-    }
-  },
-  "academicPro": {
-    "layout": {
-      "page": "bg-[#f8fafc] text-[#0f172a]",
-      "container": "bg-[#f8fafc] text-[#0f172a]",
-      "panel": "bg-white border border-[#e2e8f0]",
-      "header": "bg-white/80 backdrop-blur border-b border-[#e2e8f0]",
-      "footer": "bg-white border-t border-[#e2e8f0]"
-    },
-
-    "shape": {
-      "radius": "rounded-lg",
-      "cardRadius": "rounded-xl",
-      "buttonRadius": "rounded-lg",
-      "inputRadius": "rounded-lg"
-    },
-
-    "text": {
-      "title": "font-semibold tracking-tight text-[#0f172a]",
-      "subtitle": "text-gray-600 font-medium",
-      "body": "text-gray-500",
-      "label": "text-gray-400 text-xs font-semibold"
-    },
-
-    "button": {
-      "primary": "bg-blue-600 hover:bg-blue-700 text-white",
-      "secondary": "bg-white border border-[#cbd5f5] text-[#0f172a] hover:bg-[#f1f5f9]",
-      "accent": "bg-amber-500 hover:bg-amber-600 text-white",
-      "danger": "bg-red-600 hover:bg-red-700 text-white"
-    },
-
-    "input": {
-      "base": "bg-white border border-[#cbd5e1] text-[#0f172a] placeholder:text-gray-400 focus:border-blue-500 outline-none"
-    },
-
-    "badge": {
-      "base": "bg-[#f1f5f9] border border-[#e2e8f0] text-gray-600"
-    },
-
-    "card": {
-      "soft": "bg-white border border-[#e2e8f0]",
-      "glass": "bg-white/80 backdrop-blur border border-[#e2e8f0]"
     }
   }
 }

@@ -3,21 +3,21 @@
     "siteName": "Ananthu's PCM",
     "tagline": "+1 & +2 Science Coaching for Physics, Chemistry & Mathematics",
 
-    "primaryColor": "#1e3a8a",
-    "theme": "academicPro",
+    "primaryColor": "#166534",
+    "theme": "schoolAcademic",
 
     "logo": "/logo.png",
     "students": "300+",
 
     "colors": {
-      "primary": "#1e3a8a",
+      "primary": "#166534",
       "accent": "#ffffff"
     },
 
     "hero": {
       "title": "ഉറപ്പിക്കാം A+ അനന്ദൂസിനൊപ്പം ",
       "subtitle": "Focused coaching for +1 & +2 students in Physics, Chemistry, and Mathematics. Build strong concepts, solve faster, and score higher in board exams.",
-      "image": "/hero.jpeg",
+      "image": "/hero.png",
 
       "bunnyVideoId": "replace-with-class-video",
       "poster": "/hero.png"
@@ -31,7 +31,7 @@
 
       "bunnyVideoId": "replace-with-demo-video",
       "libraryId": "your-library-id",
-      "poster": "/class-preview.jpg",
+      "poster": "/prv.webp",
 
       "videoUrl": "https://youtube.com",
 

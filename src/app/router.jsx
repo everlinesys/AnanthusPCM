@@ -28,6 +28,20 @@ import Terms from "../public/pages/Terms";
 import Privacy from "../public/pages/Privacy";
 import AboutUs from "../public/components/AboutUs";
 
+
+import AdminTeachers from "../admin/pages/Teachers";
+import TeacherLayout from "../teacher/layout/TeacherLayout";
+import TeacherDashboard from "../teacher/pages/TeacherDashboard";
+import TeacherCourses from "../teacher/pages/TeacherCourses";
+import TeacherStudents from "../teacher/pages/TeacherStudents";
+import ClerkLayout from "../clerk/layout/ClerkLayout";
+import ClerkDashboard from "../clerk/pages/Dashboard";
+import ClerkClasses from "../clerk/pages/Classes";
+import Attendance from "../clerk/pages/Attendance";
+import TeacherAttendance from "../clerk/pages/TeacherAttendance";
+import Payouts from "../clerk/pages/Payouts";
+
+
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -83,11 +97,54 @@ export const router = createBrowserRouter([
                     { path: "courses/:id", element: <EditCourse /> },
                     { path: "course/:id/manage", element: <CourseCurriculum /> },
                     { path: "students", element: <AdminStudents /> },
+                    { path: "teachers", element: <AdminTeachers /> },
                     { path: "settings", element: <AdminSettings /> },
                 ],
             },
         ],
+    }, {
+        path: "/clerk",
+        element: <ProtectedRoute role="CLERK" />,
+        children: [
+            {
+
+                element: <ClerkLayout />,
+                children: [
+                    { index: true, element: <ClerkDashboard /> },
+                    { path: "courses", element: <AdminCourses /> },
+                    { path: "courses/:id", element: <EditCourse /> },
+                    { path: "course/:id/manage", element: <CourseCurriculum /> },
+                    { path: "students", element: <AdminStudents /> },
+                    { path: "teachers", element: <AdminTeachers /> },
+                    { path: "payouts", element: <Payouts /> },
+                    { path: "settings", element: <AdminSettings /> },
+                    { path: "classes", element: <ClerkClasses /> },
+                    { path: "attendance", element: <Attendance /> },
+
+                    { path: "teacher-attendance", element: <TeacherAttendance /> },
+                ],
+            },
+        ],
     },
+    {
+        path: "/teacher",
+        element: <ProtectedRoute role="TEACHER" />,
+        children: [
+            {
+
+                element: <TeacherLayout />,
+                children: [
+                    { index: true, element: <TeacherDashboard /> },
+                    { path: "courses", element: <TeacherCourses /> },
+                    // { path: "courses/:id", element: <EditCourse /> },
+                    { path: "course/:id/manage", element: <CourseCurriculum /> },
+                    { path: "students", element: <TeacherStudents /> },
+                    // { path: "tests", element: <Tests /> },
+                ],
+            },
+        ],
+    },
+
 
     {
         path: "*",
