@@ -57,8 +57,8 @@ export default function PublicHeader() {
             </div>
           )}
 
-          <span className="text-xl md:text-2xl font-black text-white tracking-tight italic">
-            {brand.siteName}
+          <span className="text-xl md:text-2xl font-black text-white tracking-tight ">
+            {brand.siteName.toUpperCase()}
           </span>
 
         </Link>

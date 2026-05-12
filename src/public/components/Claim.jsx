@@ -51,14 +51,14 @@ export default function Claim() {
     },
     {
       label: "Years of Excellence",
-      value: 4,
+      value: 10,
       suffix: "+",
       icon: <Calendar className="text-emerald-500" size={28} />,
       desc: "Proven track record",
     },
     {
       label: "Success Rate",
-      value: 98,
+      value: 100,
       suffix: "%",
       icon: <Award className="text-emerald-500" size={28} />,
       desc: "Board exam distinctions",
