@@ -9,11 +9,13 @@ import Team from "../components/Team";
 import MissionVision from "../components/MissionVision";
 import AboutUs from "../components/AboutUs";
 import Claim from "../components/Claim";
+import Expired from "../components/Expired";
 
 
 export default function Home() {
   return (
     <div className="">
+      <Expired />
       <Hero />
       <PreviewVideo />
       <Claim />
