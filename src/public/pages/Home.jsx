@@ -15,7 +15,7 @@ import Expired from "../components/Expired";
 export default function Home() {
   return (
     <div className="">
-      <Expired />
+      {/* <Expired /> */}
       <Hero />
       <PreviewVideo />
       <Claim />
